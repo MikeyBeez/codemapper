@@ -1,5 +1,5 @@
-from .traverser import read_ignore_file, traverse_repository
-from .parser import extract_info
+from codemapper.traverser import read_ignore_file, traverse_repository
+from codemapper.parser import extract_info
 
 def create_map(root_dir, ignore_file):
     """
