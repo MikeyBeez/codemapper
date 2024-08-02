@@ -33,6 +33,10 @@ def should_ignore(file_path, ignore_patterns, root_dir):
     """
     relative_path = os.path.relpath(file_path, root_dir)
     
+    # Always ignore .git directory and .DS_Store files
+    if '.git' in relative_path.split(os.sep) or os.path.basename(file_path) == '.DS_Store':
+        return True
+    
     for pattern in ignore_patterns:
         if pattern.endswith('/'):
             if fnmatch.fnmatch(relative_path + '/', pattern) or \
@@ -55,6 +59,13 @@ def traverse_repository(root_dir, ignore_patterns):
         str: The path to each file that should not be ignored.
     """
     for dirpath, dirnames, filenames in os.walk(root_dir):
+        # Remove .git directory from dirnames to prevent recursing into it
+        if '.git' in dirnames:
+            dirnames.remove('.git')
+        
+        # Remove .DS_Store from filenames
+        filenames = [f for f in filenames if f != '.DS_Store']
+        
         dirnames[:] = [d for d in dirnames if not should_ignore(os.path.join(dirpath, d), ignore_patterns, root_dir)]
         
         for filename in filenames:
