@@ -12,7 +12,11 @@ CodeMapper is a tool designed to map code repositories for Large Language Model 
   - Import statements
 - Handle non-Python files by providing basic file information
 - Respect `.gitignore` patterns to exclude irrelevant files
+- Automatically exclude `.git` directories and `.DS_Store` files
 - Generate a comprehensive JSON map of the repository
+
+    Note:  You can exclude more directories by adding them to .gitignore or adding them to the 
+    traverser.py file.
 
 ## Installation
 
@@ -33,6 +37,29 @@ codemapper /path/to/repo /path/to/.gitignore output.json
 - `/path/to/repo`: The root directory of the repository you want to map
 - `/path/to/.gitignore`: The path to the .gitignore file to use for excluding files
 - `output.json`: The name of the output file where the JSON map will be saved
+
+### Example
+
+```sh
+codemapper /Users/username/Projects/my-project /Users/username/Projects/my-project/.gitignore my-project-map.json
+```
+
+This command will analyze the `my-project` repository, respect the rules in its `.gitignore` file, and save the resulting map to `my-project-map.json`.
+
+### Output
+
+The tool generates a JSON file containing:
+
+- File paths and types
+- For Python files:
+  - Docstrings
+  - Function definitions and signatures
+  - Class definitions and methods
+  - Import statements
+- For non-Python files:
+  - Basic file information (path, type, size)
+
+Note: `.git` directories and `.DS_Store` files are automatically excluded from the output.
 
 ## Project Structure
 
