@@ -3,20 +3,22 @@ from setuptools import setup, find_packages
 setup(
     name='codemapper',
     version='0.1.0',
-    packages=find_packages(where='src'),
+    packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=[
-        # List your dependencies here
+        # Add any dependencies here, for example:
+        # 'requests',
+        # 'beautifulsoup4',
     ],
     entry_points={
         'console_scripts': [
-            'codemapper=codemapper.cli:main',
+            'codemapper=cli:main',
         ],
     },
     author='MikeyBeez',
     author_email='mbonsign@gmail.com',
     description='A tool to map a code repository for LLM editing',
-    long_description=open('README.md', 'r', encoding='utf-8').read(),
+    long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/MikeyBeez/codemapper',
     classifiers=[
@@ -25,6 +27,4 @@ setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',
-    include_package_data=True,
-    zip_safe=False,
 )

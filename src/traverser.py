@@ -1,6 +1,5 @@
 import os
 import fnmatch
-from pathlib import Path
 
 def read_ignore_file(ignore_file):
     """
@@ -15,11 +14,9 @@ def read_ignore_file(ignore_file):
     with open(ignore_file, 'r') as f:
         ignore_patterns = f.readlines()
     
-    # Remove comments and empty lines
     ignore_patterns = [pattern.strip() for pattern in ignore_patterns 
                        if pattern.strip() and not pattern.strip().startswith('#')]
     
-    print(f"Ignore patterns: {ignore_patterns}")
     return ignore_patterns
 
 def should_ignore(file_path, ignore_patterns, root_dir):
@@ -38,13 +35,10 @@ def should_ignore(file_path, ignore_patterns, root_dir):
     
     for pattern in ignore_patterns:
         if pattern.endswith('/'):
-            # Directory pattern
             if fnmatch.fnmatch(relative_path + '/', pattern) or \
                fnmatch.fnmatch(relative_path, pattern[:-1] + '/*'):
-                print(f"Ignoring file (directory pattern): {file_path}")
                 return True
         elif fnmatch.fnmatch(relative_path, pattern):
-            print(f"Ignoring file: {file_path}")
             return True
     return False
 
@@ -61,11 +55,9 @@ def traverse_repository(root_dir, ignore_patterns):
         str: The path to each file that should not be ignored.
     """
     for dirpath, dirnames, filenames in os.walk(root_dir):
-        # Remove ignored directories
         dirnames[:] = [d for d in dirnames if not should_ignore(os.path.join(dirpath, d), ignore_patterns, root_dir)]
         
         for filename in filenames:
             file_path = os.path.join(dirpath, filename)
             if not should_ignore(file_path, ignore_patterns, root_dir):
-                print(f"Processing file: {file_path}")
                 yield file_path
