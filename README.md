@@ -1,21 +1,25 @@
 # CodeMapper
 
-CodeMapper is a powerful tool designed to map code repositories for Large Language Model (LLM) editing. It traverses your codebase, extracts key information, and creates a JSON representation that can be easily consumed by LLMs for various code analysis and modification tasks.
+CodeMapper is a tool designed to map code repositories for Large Language Model (LLM) editing. It traverses your codebase, extracts key information, and creates a JSON representation that can be easily consumed by LLMs for various code analysis and modification tasks.
 
 ## Features
 
 - Traverse entire code repositories
-- Extract docstrings, function signatures, class names, and import statements
-- Handle multiple file types, with detailed parsing for Python files
+- Extract information from Python files, including:
+  - Docstrings
+  - Function definitions and signatures
+  - Class definitions and methods
+  - Import statements
+- Handle non-Python files by providing basic file information
 - Respect `.gitignore` patterns to exclude irrelevant files
 - Generate a comprehensive JSON map of the repository
 
 ## Installation
 
-You can install CodeMapper using pip:
+You can install CodeMapper directly from GitHub using pip:
 
 ```sh
-pip install codemapper
+pip install git+https://github.com/MikeyBeez/codemapper.git
 ```
 
 ## Usage
@@ -30,18 +34,16 @@ codemapper /path/to/repo /path/to/.gitignore output.json
 - `/path/to/.gitignore`: The path to the .gitignore file to use for excluding files
 - `output.json`: The name of the output file where the JSON map will be saved
 
-## Output
+## Project Structure
 
-CodeMapper generates a JSON file containing:
-
-- File paths and types
-- For Python files:
-  - Docstrings
-  - Function definitions and signatures
-  - Class definitions and methods
-  - Import statements
-- For non-Python files:
-  - Basic file information (path, type, size)
+- `src/codemapper/`: Main package directory
+  - `cli.py`: Command-line interface implementation
+  - `parser.py`: Code for parsing Python files and extracting information
+  - `traverser.py`: Repository traversal logic
+  - `utils.py`: Utility functions for creating the code map
+- `tests/`: Directory containing test files
+- `setup.py`: Package and distribution management
+- `LICENSE`: MIT License file
 
 ## Contributing
 
