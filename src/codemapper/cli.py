@@ -1,6 +1,6 @@
 import argparse
 import json
-from utils import create_map
+from .utils import create_map
 
 def main():
     """
@@ -13,11 +13,15 @@ def main():
 
     args = parser.parse_args()
 
-    code_map = create_map(args.root_dir, args.ignore_file)
+    try:
+        code_map = create_map(args.root_dir, args.ignore_file)
 
-    with open(args.output_file, 'w') as f:
-        json.dump(code_map, f, indent=4)
+        with open(args.output_file, 'w') as f:
+            json.dump(code_map, f, indent=4)
+        
+        print(f"Code map successfully written to {args.output_file}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
 
 if __name__ == '__main__':
     main()
-
