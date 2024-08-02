@@ -70,6 +70,10 @@ def create_map(root_dir, ignore_file):
     }
 
     for file_path in file_paths:
+        # Skip .gitignore file
+        if os.path.basename(file_path) == '.gitignore':
+            continue
+
         file_info = extract_info(file_path)
         if file_info is not None:
             # Include file content for README.md
