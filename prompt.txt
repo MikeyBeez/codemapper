@@ -1,0 +1,71 @@
+# Comprehensive Code Mapping Prompt
+
+Create a detailed map of the given codebase, focusing on the following aspects:
+
+1. Project Structure:
+   - Provide a complete directory tree, including all subdirectories and files
+   - Highlight key configuration files (e.g., setup.py, requirements.txt, .gitignore)
+
+2. Module Breakdown:
+   - For each Python file:
+     - List all functions, methods, and classes with their signatures
+     - Include docstrings for modules, classes, and functions
+     - Summarize the purpose of each module
+     - List all imports, both standard library and third-party
+
+3. Dependencies:
+   - List all project dependencies and their versions
+   - Identify core dependencies vs. development dependencies
+
+4. Configuration:
+   - Summarize the content of configuration files (e.g., setup.py, pyproject.toml)
+   - List any environment variables or external configuration needed
+
+5. Entry Points:
+   - Identify the main entry point(s) of the application
+   - Describe how the application is typically run or invoked
+
+6. Data Flow:
+   - Provide a high-level overview of how data flows through the application
+   - Identify key data structures and their purposes
+
+7. External Interactions:
+   - List any external APIs, databases, or services the code interacts with
+   - Describe the nature of these interactions (e.g., read, write, authenticate)
+
+8. Testing:
+   - Summarize the testing strategy (e.g., unit tests, integration tests)
+   - List test files and their corresponding production code files
+
+9. Documentation:
+   - Summarize README content and any other documentation files
+   - Note any missing or outdated documentation
+
+10. Code Patterns and Style:
+    - Identify common design patterns used in the code
+    - Note any consistent coding styles or conventions
+
+11. Performance Considerations:
+    - Highlight any obvious performance optimizations or bottlenecks
+    - Note usage of concurrency, caching, or other performance-related features
+
+12. Error Handling and Logging:
+    - Describe the overall approach to error handling
+    - Identify logging mechanisms and their usage
+
+13. Security:
+    - Note any security-related features (e.g., input validation, authentication)
+    - Identify potential security concerns if any are apparent
+
+14. TODOs and FIXMEs:
+    - List any TODO or FIXME comments in the code
+
+15. Version Control:
+    - Note the version control system used (e.g., Git)
+    - Summarize the branch structure if apparent from the codebase
+
+16. Build and Deployment:
+    - Describe any build processes or scripts
+    - Note any deployment-related files or configurations
+
+For each of these aspects, provide as much detail as possible based on the available code and file content. The goal is to create a comprehensive map that would allow someone to understand the structure, functionality, and key characteristics of the codebase without having direct access to all of the code.
