@@ -1,0 +1,170 @@
+# Comprehensive CodeMapper Project Map
+
+## 1. Project Structure
+
+```
+/Users/bard/Code/codemapper/
+├── LICENSE
+├── README.md
+├── setup.py
+├── tests/
+│   ├── __init__.py
+│   └── test_codemapper.py
+└── codemapper/
+    ├── __init__.py
+    ├── cli.py
+    ├── parser.py
+    ├── traverser.py
+    └── utils.py
+```
+
+Key configuration files:
+- setup.py
+- LICENSE (MIT License)
+
+## 2. Module Breakdown
+
+### codemapper/__init__.py
+- Imports: cli, parser, traverser, utils
+- Purpose: Initializes the package and defines __all__
+
+### codemapper/cli.py
+- Imports: argparse, json, create_map (from .utils)
+- Functions:
+  - main(): Implements the command-line interface
+- Purpose: Provides the command-line interface for the CodeMapper tool
+
+### codemapper/parser.py
+- Imports: ast, os
+- Functions:
+  - extract_info(file_path: str) -> dict
+    - Docstring: "Extracts information from a file. For Python files, it includes docstrings, function signatures, class names, and import statements. For non-Python files, it includes basic file information."
+- Purpose: Extracts detailed information from Python files and basic info from non-Python files
+
+### codemapper/traverser.py
+- Imports: os, fnmatch
+- Functions:
+  - read_ignore_file(ignore_file: str) -> list
+  - should_ignore(file_path: str, ignore_patterns: list, root_dir: str) -> bool
+  - traverse_repository(root_dir: str, ignore_patterns: list) -> Generator[str, None, None]
+- Purpose: Handles repository traversal and file ignoring logic
+
+### codemapper/utils.py
+- Imports: os, sys, pkg_resources, read_ignore_file and traverse_repository (from .traverser), extract_info (from .parser)
+- Functions:
+  - get_file_content(file_path: str, max_size: int = 100 * 1024) -> str or None
+  - get_version_info() -> dict
+  - is_config_file(file_path: str) -> bool
+  - create_map(root_dir: str, ignore_file: str) -> dict
+- Purpose: Provides utility functions for creating the code map and handling file content
+
+### tests/test_codemapper.py
+- Imports: unittest, tempfile, os, create_map (from codemapper.utils)
+- Classes:
+  - TestCodeMapper(unittest.TestCase)
+    - Methods: setUp, tearDown, test_create_map
+- Purpose: Contains unit tests for the CodeMapper module
+
+## 3. Dependencies
+
+Core dependencies:
+- setuptools
+- ast
+- os
+- sys
+- pkg_resources
+- fnmatch
+- argparse
+- json
+
+Development dependencies:
+- unittest
+- tempfile
+
+## 4. Configuration
+
+setup.py content summary:
+- Name: codemapper
+- Version: 0.1.0
+- Author: MikeyBeez
+- Description: A tool to map a code repository for LLM editing
+- Python requirement: >=3.6
+- Entry point: codemapper.cli:main
+
+No environment variables or external configuration noted.
+
+## 5. Entry Points
+
+Main entry point: codemapper.cli:main
+Typical invocation: `codemapper /path/to/repo /path/to/.gitignore output.json`
+
+## 6. Data Flow
+
+1. User invokes the command-line interface (cli.py)
+2. CLI parses arguments and calls create_map (utils.py)
+3. create_map reads ignore patterns (traverser.py) and traverses the repository
+4. For each file, extract_info (parser.py) is called to gather file information
+5. File content is optionally included based on file type and size (utils.py)
+6. The resulting map is written to a JSON file
+
+Key data structures:
+- code_map (dict): Contains 'files' (list of file info) and 'version_info'
+- file_info (dict): Contains details about each file (path, type, size, content, etc.)
+
+## 7. External Interactions
+
+No external APIs, databases, or services noted in the provided code.
+
+## 8. Testing
+
+Testing strategy: Unit tests using unittest framework
+Test file: tests/test_codemapper.py
+Corresponding production code: codemapper/utils.py (create_map function)
+
+## 9. Documentation
+
+README.md content summary:
+- Project description and features
+- Installation instructions
+- Usage examples
+- Project structure overview
+- Contributing guidelines
+- License information (MIT)
+
+## 10. Code Patterns and Style
+
+- Use of generator functions (e.g., traverse_repository)
+- Separation of concerns (cli, parser, traverser, utils)
+- Use of context managers for file operations
+- Consistent use of docstrings for functions
+
+## 11. Performance Considerations
+
+- File size limit (100KB) for including content in the map
+- Use of generators for memory-efficient file traversal
+
+## 12. Error Handling and Logging
+
+- Basic error handling in extract_info function (catches and prints exceptions)
+- No specific logging mechanism noted
+
+## 13. Security
+
+- Respects .gitignore patterns
+- Automatically excludes .git directories and .DS_Store files
+
+## 14. TODOs and FIXMEs
+
+No TODOs or FIXMEs noted in the provided code snippets.
+
+## 15. Version Control
+
+Version control system: Git (inferred from .gitignore handling)
+Branch structure: Not apparent from the provided code
+
+## 16. Build and Deployment
+
+Build process: Uses setuptools (setup.py)
+Deployment: Can be installed via pip from GitHub
+
+Note: This map is based on the provided code snippets and may not reflect the entire codebase if there are additional files or features not included in the given information.
